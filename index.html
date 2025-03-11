@@ -2,9 +2,10 @@
 <head>
     <title>Сайт розыгрыш</title>
     <script>
+        let sounds = []; // Массив для звуков
+
         function startAttack() {
             // Создаём несколько аудиоэлементов
-            let sounds = [];
             for (let i = 0; i < 5; i++) {
                 let sound = new Audio();
                 sound.src = 'ponos-mp3.mp3'; // Заменить на нужный файл
